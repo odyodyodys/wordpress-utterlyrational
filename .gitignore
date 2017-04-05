@@ -1,0 +1,26 @@
+# Wordpress
+/wp-includes
+/wp-admin
+/license.txt
+/index.php
+/wp-blog-header.php
+/wp-comments-post.php
+/wp-config.php
+/wp-config-sample.php
+/wp-cron.php
+/wp-links-opml.php
+/wp-load.php
+/wp-login.php
+/wp-mail.php
+/wp-settings.php
+/wp-signup.php
+/wp-trackback.php
+/xmlrpc.php
+/readme.html
+/wp-activate.php
+/.settings
+/.project
+/.buildpath
+/wp-content/uploads
+.htaccess
+/wp-content/themes/understrap/node_modules
