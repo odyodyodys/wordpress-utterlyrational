@@ -23,4 +23,7 @@
 /.buildpath
 /wp-content/uploads
 .htaccess
-/wp-content/themes/understrap/node_modules
+/wp-content/themes/tothepoint/node_modules
+/wp-content/plugins/icode/node_modules
+/wp-content/plugins/advanced-custom-fields-pro-5.5.10
+/wp-content/plugins/akismet

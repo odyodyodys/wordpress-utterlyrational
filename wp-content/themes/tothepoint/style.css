@@ -1,19 +1,18 @@
 /*
-Theme Name: UnderStrap
-Theme URI: http://understrap.com
-Author: Holger Koenemann
-Author URI: http://www.holgerkoenemann.de
-Description: Combination of Automattic´s _s theme and Bootstrap 4. Made as a solid starting point for your next theme project and WordPress website. Use it as starter theme or as a parent theme. It is up to you. Including Font Awesome support, built-in widget slider and much more you need for basic websites. IMPORTANT: All developer dependencies are not bundled with this install file. Just download the .zip, extract it and run "npm install" and "gulp copy-assets" inside the extracted /understrap folder. 
+Theme Name: ToThePoint
+Theme URI: http://utterlyrational.com
+Author: Odys
+Author URI: http://www.utterlyrational.com
+Description: Based on UnderStrap 0.5.7 (http://understrap.com). Combination of Automattic´s _s theme and Bootstrap 4. Made as a solid starting point for your next theme project and WordPress website. Use it as starter theme or as a parent theme. It is up to you. Including Font Awesome support, built-in widget slider and much more you need for basic websites. IMPORTANT: All developer dependencies are not bundled with this install file. Just download the .zip, extract it and run "npm install" and "gulp copy-assets" inside the extracted /understrap folder. 
 That downloads everything and moves it in place so that you can recompile your CSS and JS files;
 A developer version (with Gulp/node and Sass sources) is available on gitHub: https://github.com/holger1411/understrap
 A child theme is available on Github, too: https://github.com/holger1411/understrap-child;
-Version: 0.5.7
-License: GNU General Public License v2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Version: 1.0.0
+License: Propertiary
 Text Domain: understrap
 Tags: one-column, custom-menu, featured-images, theme-options, translation-ready
 
-This theme, like WordPress, is licensed under the GPL.
+Based on UnderStrap 0.5.7 (http://understrap.com)
 UnderStrap is based on Underscores http://underscores.me/, (C) 2012-2016 Automattic, Inc.
 
 Resource Licenses:
