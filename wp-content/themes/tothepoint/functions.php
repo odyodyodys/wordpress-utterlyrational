@@ -4,80 +4,34 @@
  *
  * @package understrap
  */
-class Understrap
+class ToThePoint
 {
     public $aboutPageEngId = 134;
     
     public function __construct()
     {
-        /**
-         * Theme setup and custom theme supports.
-         */
-        require get_template_directory() . '/inc/setup.php';
+        $templateDirectory = get_template_directory();
         
-        /**
-         * Register widget area.
-         *
-         * @link http://codex.wordpress.org/Function_Reference/register_sidebar
-         */
-        require get_template_directory() . '/inc/widgets.php';
+        $includes = [];
+        $includes []= '/inc/setup.php'; // Theme setup and custom theme supports.
+        $includes []= '/inc/widgets.php'; // Register widget area. @link http://codex.wordpress.org/Function_Reference/register_sidebar
+        $includes []= '/inc/security.php'; // functions to secure your WP install.
+        $includes []= '/inc/enqueue.php'; // Enqueue scripts and styles.
+        $includes []= '/inc/template-tags.php'; // Template tags for this theme.
+        $includes []= '/inc/pagination.php'; // Template tags for this theme.
+        $includes []= '/inc/extras.php'; // Functions that act independently of the theme templates.
+        $includes []= '/inc/customizer.php'; // Customizer additions.
+        $includes []= '/inc/custom-comments.php'; // Customizer additions.
+        $includes []= '/inc/jetpack.php'; // Jetpack compatibility file.
+        $includes []= '/inc/bootstrap-wp-navwalker.php'; // custom nav walker.
+        //$includes []= '/inc/woocommerce.php'; // WooCommerce functions.
+        $includes []= '/inc/editor.php'; // Editor functions.
         
-        /**
-         * Load functions to secure your WP install.
-         */
-        require get_template_directory() . '/inc/security.php';
-        
-        /**
-         * Enqueue scripts and styles.
-         */
-        require get_template_directory() . '/inc/enqueue.php';
-        
-        /**
-         * Custom template tags for this theme.
-         */
-        require get_template_directory() . '/inc/template-tags.php';
-        
-        /**
-         * Custom template tags for this theme.
-         */
-        require get_template_directory() . '/inc/pagination.php';
-        
-        /**
-         * Custom functions that act independently of the theme templates.
-         */
-        require get_template_directory() . '/inc/extras.php';
-        
-        /**
-         * Customizer additions.
-         */
-        require get_template_directory() . '/inc/customizer.php';
-        
-        /**
-         * Customizer additions.
-         */
-        require get_template_directory() . '/inc/custom-comments.php';
-        
-        /**
-         * Load Jetpack compatibility file.
-         */
-        require get_template_directory() . '/inc/jetpack.php';
-        
-        /**
-         * Load custom WordPress nav walker.
-         */
-        require get_template_directory() . '/inc/bootstrap-wp-navwalker.php';
-        
-        /**
-         * Load WooCommerce functions.
-         */
-        require get_template_directory() . '/inc/woocommerce.php';
-        
-        /**
-         * Load Editor functions.
-         */
-        require get_template_directory() . '/inc/editor.php';
+        foreach ($includes as $incl):
+            require_once $incl;
+        endforeach;
     }    
 }
 
-global $understrap;
-$understrap = new Understrap();
+global $theme;
+$theme = new ToThePoint();

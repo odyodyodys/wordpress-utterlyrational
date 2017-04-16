@@ -2,7 +2,7 @@
 Plugin Name:  ICode
 Plugin URI:   http://utterlyrational.com
 Description:  Allows you to structure your programming experience and use it in a theme
-Version:      1.0.0
+Version:      1.1.0
 Author:       Odys
 Author URI:   http://utterlyrational.com
 */

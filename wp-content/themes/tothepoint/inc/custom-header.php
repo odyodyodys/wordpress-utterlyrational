@@ -5,8 +5,8 @@
  * @package understrap
  */
 
-function understrap_custom_header_setup() {
-
+function understrap_custom_header_setup()
+{
 	/**
 	 * Filter UnderStrap custom-header support arguments.
 	 *

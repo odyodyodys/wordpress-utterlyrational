@@ -1,2 +1,2 @@
 start gulp watch
-start gulp --gulpfile ../../plugins/icode/gulpfile.js
+:: start gulp --gulpfile ../../plugins/icode/gulpfile.js
