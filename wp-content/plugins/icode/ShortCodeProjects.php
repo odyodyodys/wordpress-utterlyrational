@@ -64,11 +64,12 @@ class ShortCodeProjects
                                     // get component info
                                     $component = $componentData[0];
                                     $componentWeight = ($componentData[1] / $totalWeight)*100; // percent
-                                    $componentUrl = get_field('component_url', $component->ID);                                    
+                                    $componentUrl = get_field('component_url', $component->ID);
+                                    $componentColor = get_field('component_color', $component->ID);
                                     // component type
                                     $componentTypes = get_the_terms($component->ID, 'component_type');
                                     ?>
-                                    <span class="component" data-id="<?php echo $component->ID; ?>" data-weight="<?php echo $componentWeight;?>">
+                                    <span class="component" data-id="<?php echo $component->ID; ?>" data-weight="<?php echo $componentWeight;?>" data-color="<?php echo $componentColor; ?>">
                                         <span class="name"><?php echo get_the_title($component->ID)?></span>
                                         <span class="description"><?php echo get_the_content();?></span>
                                         <a href="<?php echo $componentUrl;?>" target="blank"><?php _e('url', 'icode');?></a><?php

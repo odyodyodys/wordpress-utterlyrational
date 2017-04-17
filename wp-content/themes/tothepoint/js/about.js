@@ -17,32 +17,65 @@ var Theme = Theme || {};
 		},
 		
 		createLanguagesGraph: function($container)
-		{
+		{		    
 			var $canvas = $('<canvas>').addClass('graph langs');
 			$container.append($canvas);
 
 			var graphData = this.getLanguageGraphData();
 			var datasets = [];
 			var datasetSize = 0;
+			var totalPeriod;
 			for ( var langKey in graphData)
             {
                 datasets.push({data: graphData[langKey].days, 
                                label: graphData[langKey].language.find('.name').html(),
-                               backgroundColor: 'rgba(' + (Math.floor(Math.random() * 200) + 50)   +', ' + (Math.floor(Math.random() * 200) + 50)   +', ' + (Math.floor(Math.random() * 200) + 50)   +', 1)'});
+                               backgroundColor: graphData[langKey].color});
                 datasetSize = graphData[langKey].days.length;
+                
+                // find the total period
+                if(totalPeriod === undefined)
+                {
+                    totalPeriod = graphData[langKey].period;
+                }
+                else
+                {
+                    totalPeriod = moment.range(moment.min(totalPeriod.start, graphData[langKey].period.start), moment.max(totalPeriod.end, graphData[langKey].period.end));
+                }
             }
+			
+			// create the labels. Need datasetSize number of points in time between start-end of the period (inclusive)
+			var valuesNeeded = datasetSize - 2;
+			var rangeMs = totalPeriod.end.toDate().getTime() - totalPeriod.start.toDate().getTime();
+			var stepMs = rangeMs / (valuesNeeded + 1);
+			var labels = [];
+			labels.push(totalPeriod.start.toDate());
+			for(var i = 0; i < valuesNeeded; i++)
+		    {
+			    labels.push(new Date(labels[0].getTime() + i * stepMs));
+		    }
+			labels.push(totalPeriod.end.toDate());
 						
 			var chart = new Chart($canvas, {
 			    type: 'line',
 			    data:{
-			        labels: new Array(datasetSize),
+			        labels: labels,
 			        datasets: datasets
 			      },
 			    options: {
 			        scales: {
 			            xAxes: [{
-			                display:false
-			            }],
+			                type: 'time',
+			                time: {
+			                    min: labels[0],
+			                    max: labels[labels.length - 1 ],
+			                    unit: 'year'
+                              },
+			                ticks:{
+			                    autoSkip: true,
+			                    maxRotation : 0,
+			                    autoSkipPadding: 35
+			                }
+			                }],
 			            yAxes: [{
 			                stacked: true,
 			                display: true,
@@ -52,17 +85,9 @@ var Theme = Theme || {};
 			                }
 			            }]
 			        },
-			        legend: {
-			            display: true
-			        },
-			        tooltips: {
-			            enabled: false
-			        },
-			        elements: { 
-			            point: { 
-			                radius: 0
-			                }
-			        }
+			        legend: { display: true },
+			        //tooltips: { enabled: false },
+			        elements: { point: { radius: 0 /* disable points */} }
 			    }
 			});
 		
@@ -75,13 +100,14 @@ var Theme = Theme || {};
 			// map from project:component:langs to lang:project
 			// langSlug => {projectid, language, project, project-wise weight}
 			var langData = {};
-			var $projects = $('.projects .project .component').has('.component-type[data-slug="'+languageSlug+'"]').each(function(i, el){
+			$('.projects .project .component').has('.component-type[data-slug="'+languageSlug+'"]').each(function(i, el){
 				// gather data
 				var $lang = $(el);
 				var $project = $lang.closest('.project');
 				var weight = $lang.data('weight');
 				var startDate = moment($project.find('time.start').attr('datetime')).add(0, 'h');
 				var endDate = moment($project.find('time.end').attr('datetime')).add(23, 'h');
+				var langColor = $lang.data('color');
 			
 				// add lang
 				var langId = $lang.data('id');
@@ -89,7 +115,7 @@ var Theme = Theme || {};
 				{
 					langData[langId] = [];
 				}
-				langData[langId].push({'projectId': $project.data('id'), 'language': $lang, 'project': $project, 'period': moment.range(startDate, endDate), 'weight': weight});
+				langData[langId].push({'projectId': $project.data('id'), 'language': $lang, 'project': $project, 'period': moment.range(startDate, endDate), 'weight': weight, 'color': langColor});
 			});
 			
 			// create the data for the datasets
@@ -131,8 +157,20 @@ var Theme = Theme || {};
 					{
 						graphData[langKey] = {};
 						graphData[langKey].language = data.language;
+						graphData[langKey].color = data.color;
 						graphData[langKey].days = new Array(periodDays).fill(0);
 					}
+					
+
+                    if(!('period' in graphData[langKey]))
+                    {
+                        graphData[langKey].period = data.period;
+                        
+                    }
+                    else
+                    {
+                        graphData[langKey].period = moment.range(moment.min(graphData[langKey].period.start, data.period.start), moment.max(graphData[langKey].period.end, data.period.end));
+                    }
 					
 					// get the index in the days array for the project start/end
 					var indexStart = moment.range(min, data.period.start).diff('days');
@@ -146,8 +184,6 @@ var Theme = Theme || {};
 					}
 				}
 			}
-
-            console.log(graphData);
 						
 			// scale all weights between 0-100. This is to be done day by day, not for the whole thing.
 			for(var i = 0; i < periodDays; i++)
@@ -166,7 +202,7 @@ var Theme = Theme || {};
 			}
 			
 			// reduce resolution. average day weight
-			var mergeDays = 150; // n days in one
+			var mergeDays = 180; // n days in one
 			for(langKey in graphData)
             {
 			    var days = graphData[langKey].days;
