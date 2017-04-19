@@ -12,14 +12,18 @@ var Theme = Theme || {};
 			window['moment-range'].extendMoment(moment);
 			
 			$post = $('#main').find('.page .entry-content');
-			
-			this.createLanguagesGraph($post);
+
+			$post.empty();
+			//this.createLanguagesGraph($post);
+
+            this.createArtwork($post);
+
 		},
 		
 		createLanguagesGraph: function($container)
 		{		    
 			var $canvas = $('<canvas>').addClass('graph langs');
-			$container.append($canvas);
+			$container.find('.projects').after($canvas);
 
 			var graphData = this.getLanguageGraphData();
 			var datasets = [];
@@ -223,7 +227,18 @@ var Theme = Theme || {};
             }
 			
 			return graphData;
-		}
+		},
+
+        createArtwork: function ($container)
+        {
+            $box = $('<div>').addClass('process-illustration');
+			$brain = $('<div>').addClass('brain');
+			$pulse1 = $('<div>').addClass('pulse pulse-1');
+            $pulse2 = $('<div>').addClass('pulse pulse-2');
+            $box.append($brain).append($pulse1).append($pulse2);
+
+            $container.append($box);
+        }
     };
 })( jQuery );
 

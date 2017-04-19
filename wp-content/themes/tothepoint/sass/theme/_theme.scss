@@ -1,2 +1,33 @@
-// This is an empty scss file for your custom styles - Please add your super duper awesome mega design styles here
+// Theme styles
+@keyframes pulse {
+    0%{transform: scale(.1); opacity: 0;}
+    50%{ opacity: .4;}
+    100%{transform: scale(1.6); opacity: 0;}
+}
 
+.process-illustration{
+    min-height: 300px;
+    background-color: #f0f0f0;
+    position:relative;
+    > * {
+        position: absolute;
+    }
+    .brain, .pulse {
+        border-radius: 50%;
+        background: #2185ba;
+        width: 80px;
+        height: 80px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        right:0;
+        bottom:0;
+        margin: auto;
+    }
+    .pulse {
+        animation: pulse 1.8s infinite;
+    }
+    .pulse-2 {
+        animation-delay: .4s;
+    }
+}

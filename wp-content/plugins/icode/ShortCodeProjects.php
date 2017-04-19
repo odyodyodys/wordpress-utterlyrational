@@ -93,8 +93,7 @@ class ShortCodeProjects
         endif;
         wp_reset_query();
         
-        $markup = ob_get_contents();
-        ob_end_clean();
+        $markup = ob_get_clean();
         return $markup;
     }
     
